@@ -196,7 +196,7 @@ int main(){
                     usleep(1000);
                 };
             };
-            if((strcmp(current, "LDA")) == 0){
+            if((strcmp(current, "STA")) == 0){
                 aa[0] = d1[2];
                 aa[1] = d1[3];
                 aa[2] = d1[4];
@@ -210,6 +210,10 @@ int main(){
                 int ab = (int)strtol(aa, NULL, 2);
                 mem[ab] = accum;
                 printf("MEM CHANGE @%s, SET TO 0b%08b\n", aa, accum);
+            };
+            if((strcmp(current, "LDA")) == 0){
+                int ac = (int)strtol(d1 + 2, NULL, 2);
+                accum = mem[ac];
             };
             printf("\n");
 

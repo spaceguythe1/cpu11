@@ -275,14 +275,12 @@ int main(){
             if((strcmp(current, "DIS")) == 0){
                 for(int y = 0; y < 8; y++){
                     uint8_t z = mem[y];
-                    char line[] = "0000000000000000";
+                    char line[] = "00000000";
                     for(int x = 0; x < 8; x++){
                         if ((z >> x) & 1) {
                             line[x] = '#';
-                            line[x + 1] = '#';
                         } else {
                             line[x] = ' ';
-                            line[x + 1] = ' ';
                         };
                     };
                     printf("%s\n", line);

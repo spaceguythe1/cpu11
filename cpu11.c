@@ -10,7 +10,9 @@ int clockvalue = 0;
 int count = 0;
 int aluz;
 
-// this is a test lol
+// im listening to bad apple lol
+
+// it fucking slaps damn
 
 void clok(){
 

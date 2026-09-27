@@ -236,7 +236,7 @@ int main(){
             };
             if((strcmp(current, "JMP")) == 0){
                 int ah = (int)strtol(d1 + 2, NULL, 2);
-                count = ah;
+                count = ah - 1;
                 printf("Jumping to line: %d\n", count);
             };
 
@@ -244,7 +244,7 @@ int main(){
                 alu("zero");
                 if(aluz == 1){
                     int ai = (int)strtol(d1 + 2, NULL, 2);
-                    count = ai;
+                    count = ai - 1;
                     printf("Jumping to line: %d\n", count);
                 };
             };
@@ -261,7 +261,7 @@ int main(){
             };
             if((strcmp(current, "JMF")) == 0){
                 int ah = (int)strtol(d1 + 2, NULL, 2);
-                count = mem[ah];
+                count = mem[ah] - 1;
                 printf("Jumping to line: %d\n", count + 1);
             };
 
@@ -269,7 +269,7 @@ int main(){
                 alu("zero");
                 if(aluz == 1){
                     int ai = (int)strtol(d1 + 2, NULL, 2);
-                    count = mem[ai];
+                    count = mem[ai] - 1;
                     printf("Jumping to line: %d\n", count + 1);
                 };
             };

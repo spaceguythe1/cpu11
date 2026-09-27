@@ -219,6 +219,12 @@ int main(){
                 accum += mem[ad];
                 printf("accum: 0b%08b\n", accum);
             };
+            
+            if((strcmp(current, "SUB")) == 0){
+                int ae = (int)strtol(d1 + 2, NULL, 2);
+                accum -= mem[ae];
+                printf("accum: 0b%08b\n", accum);
+            };
 
             printf("\n");
 

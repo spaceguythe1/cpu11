@@ -163,8 +163,12 @@ int main(){
 
             // strcmp my beloved =0 enemy =1
 
-            if((strcmp(current, "BLK")) == 0){
-                printf("Instruction BLK, Nothing to Do!\n");
+            if(strcmp(current, "SCA") == 0){
+                char ba[9];
+                printf("8 bit input: ");
+                scanf("%8s", ba);
+                uint8_t bb = (uint8_t)strtoul(ba, NULL, 2);
+                accum = bb;
             };
             if((strcmp(current, "HAL")) == 0){
                 printf("Halting...\n");

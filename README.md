@@ -58,9 +58,8 @@ When prompted, choose `run` and provide a file path such as:
 run
 x 
 ```
-if x is typed, the program attempts to use the built-in default file path, if not found; please provide a valid file path to a text file containing CPU instructions.
 
-If you type `x`, the program attempts to use the built-in default file path.
+If you type `x`, the program attempts to use the built-in default file path; or provide a valid program path
 
 ## Example program
 

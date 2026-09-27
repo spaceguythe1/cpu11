@@ -89,6 +89,10 @@ int main(){
     if((strcmp(UPPERquery, "run" ) == 0)){
         printf("File to run (include /x/y/z.txt to make sure it works): ");
         scanf("%s", FILEquery);
+        if((strcmp(FILEquery, "x" ) == 0)){
+            FILEquery[] = "/home/josep/cpu11/default.txt";
+            printf("default file selected\n");
+        };
 
         FILE *fiee = fopen(FILEquery, "r");
 

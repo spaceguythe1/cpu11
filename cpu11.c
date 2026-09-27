@@ -275,12 +275,12 @@ int main(){
             if((strcmp(current, "DIS")) == 0){
                 printf("DIS - rendering mem[0..7] as (x=value, y=address)\n\n");
                 for(int y = 0; y < 8; y++){
-                    int x = mem[y];
-                    if(x > 7) x = 7; 
+                    int x = mem[y] * 8 / 255; // scale 0-255 to 0-8 bar length
+                    if(x > 8) x = 8; // safety clamp
 
                     printf("%d | ", y);
                     for(int col = 0; col < 8; col++){
-                        if(col == x){
+                        if(col < x){
                             printf("#");
                         } else {
                             printf(".");

@@ -8,6 +8,7 @@
 uint8_t accum = 0b00000000;
 int clockvalue = 0;
 int count = 0;
+int aluz;
 
 // this is a test lol
 
@@ -42,12 +43,9 @@ void counter(char func[], int set){
 
 };
 
-
 void alu(char func[]){
-    int aluz = 0;
-    int ADDFLAG = 0;
-    if((strcmp(func,"step")) == 0){
-        printf("ALU STEP START\n");
+    if((strcmp(func,"zero")) == 0){
+        printf("Checking for zero...\n");
         if(accum == 0b00000000){
             aluz = 1;
             printf("aluz = 1\n");
@@ -56,7 +54,6 @@ void alu(char func[]){
             aluz = 0;
             printf("aluz = 0\n");
         };
-        printf("ALU STEP END\n");
     };
 };
 
@@ -225,10 +222,32 @@ int main(){
                 accum -= mem[ae];
                 printf("accum: 0b%08b\n", accum);
             };
+            if((strcmp(current, "AND")) == 0 ){
+                int af = (int)strtol(d1 + 2, NULL, 2);
+                accum &= mem[af];
+                printf("accum: 0b%08b\n", accum);
+            };
+            if((strcmp(current, "ORR")) == 0){
+                int ag = (int)strtol(d1 + 2, NULL, 2);
+                accum |= mem[ag];
+                printf("accum: 0b%08b\n", accum);
+            };
+            if((strcmp(current, "JMP")) == 0){
+                int ah = (int)strtol(d1 + 2, NULL, 2);
+                count = ah;
+                printf("Jumping to line: %d\n", count);
+            };
+            if((strcmp(current, "JZE")) == 0){
+                alu("zero");
+                if(aluz == 0){
+                    int ai = (int)strtol(d1 + 2, NULL, 2);
+                    count = ai;
+                    printf("Jumping to line: %d\n", count);
+                };
+            };
 
             printf("\n");
 
-            alu("step");
             printf("\n\n");
             usleep(25000);
         };

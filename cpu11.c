@@ -273,23 +273,18 @@ int main(){
             };
 
             if((strcmp(current, "DIS")) == 0){
-                printf("DIS - rendering mem[0..7] as (x=value, y=address)\n\n");
                 for(int y = 0; y < 8; y++){
-                    int x = mem[y] * 8 / 255; // scale 0-255 to 0-8 bar length
-                    if(x > 8) x = 8; // safety clamp
-
-                    printf("%d | ", y);
-                    for(int col = 0; col < 8; col++){
-                        if(col < x){
-                            printf("#");
+                    uint8_t z = mem[y];
+                    char line[] = "00000000";
+                    for(int x = 0; x < 8; x++){
+                        if ((z >> x) & 1) {
+                            line[x] = '#';
                         } else {
-                            printf(".");
-                        }
-                    }
-                    printf(" | mem[%d]=0b%08b\n", y, mem[y]);
-                    usleep(1000);
+                            line[x] = '.';
+                        };
+                    };
+                    printf("%s\n", line);
                 };
-                printf("\n");
             };
 
 

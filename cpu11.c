@@ -9,7 +9,7 @@ uint8_t accum = 0b00000000;
 int clockvalue = 0;
 int count = 0;
 
-// this is a test
+// this is a test lol
 
 void clok(){
 

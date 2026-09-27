@@ -1,0 +1,7 @@
+instuection set for cpu11
+
+(0000) BLK - Dosent do anything, Usefull for making timed things, although dependent on the clock speed, as it does not use any sort of delta time
+(0001) HAL - Halts the program
+(0010) LOD {d1} - Sets the accumilator to wahtever d1 is
+(0011) CLR - clears and dumps the memory
+(0100) LDA {d1} - Load Accumilator into memory @ d1

@@ -1,20 +1,20 @@
 instuection set for cpu11
 
-(000000) SCA - Prompts the user to enter an 8 bit number, sets it to the accumilator
-(000001) HAL - Halts the program
-(000010) LOD {d1} - Sets the accumilator to whatever $d1 is
-(000011) CLR - clears and dumps the memory
-(000100) TAC {d1} - sets memory address d1 to the current counter
-(000101) LDA {d1} - Copy data from memory address $d1 into Accumulator
-(000110) STA {d1} - Load Accumilator into memory address $d1
-(000111) ADD {d1} - adds memory contents $d1 and accum together, for example d1= 00001001 accum= 10001010, answer= 10010011
-(001000) SUB {d1} - like add, but subtracts instead.
-(001001) AND {d1} - Bitwise AND memory contents with Accumulator; then stores to accumilator.
-(001010) ORR {d1} - Bitwise OR memory contents with Accumulator; then stores to accumilator.
-(001011) JMP {d1} - Unconditionally change execution flow to $d1
-(001100) JZE {d1} - Conditionally jump to $d1 if the Zero Flag is set.
-(001101) JMF {d1} - Like JMP, but it jumps to the value stored at address $d1
-(001110) JZF {d1} - Like JZE, but it jumps to the value stored at address $d1
-(001111) DIS - takes the first 8 memory addresses (00000000-00000111) and outputs then as a display-like image,
+(0000) SCA - Prompts the user to enter an 8 bit number, sets it to the accumilator
+(0001) HAL - Halts the program
+(0010) LOD {d1} - Sets the accumilator to whatever $d1 is
+(0011) CLR - clears and dumps the memory
+(0100) TAC - sets memory address mem[1] and mem[0] (see JMP && JZE for usage) to the current counter
+(0101) LDA {d1} - Copy data from memory address $d1 into Accumulator
+(0110) STA {d1} - Load Accumilator into memory address $d1
+(0111) ADD {d1} - adds memory contents $d1 and accum together, for example d1= 00001001 accum= 10001010, answer= 10010011
+(1000) SUB {d1} - like add, but subtracts instead.
+(1001) AND {d1} - Bitwise AND memory contents with Accumulator; then stores to accumilator.
+(1010) ORR {d1} - Bitwise OR memory contents with Accumulator; then stores to accumilator.
+(1011) JMP - Unconditionally sets the counter to mem[0] and mem[1] 
+- where mem[1] is the first 8 bits of a 16 bit number and mem[0] are the latter 8.
+(1100) JZE - Conditionally sets the counter to mem[0] and mem[1] 
+- where mem[1] is the first 8 bits of a 16 bit number and mem[0] are the latter 8; if the Zero Flag is set.
+(1110) BLK - HE'S BACKKKKK
+(1111) DIS - takes the first 8 memory addresses (00000000-00000111) and outputs then as a display-like image,
  data inside the address is the x value, and the actual address is the y value
-(010000) BLK - HE'S BACKKKKK

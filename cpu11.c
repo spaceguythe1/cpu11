@@ -238,42 +238,27 @@ int main(){
                 accum |= mem[ag];
                 printf("accum: 0b%08b\n", accum);
             };
-            if((strcmp(current, "JMP")) == 0){
-                int ah = (int)strtol(d1 + 2, NULL, 2);
-                count = ah;
-                printf("Jumping to line: %d\n", count);
-            };
-
-            if((strcmp(current, "JZE")) == 0){
-                alu("zero");
-                if(aluz == 1){
-                    int ai = (int)strtol(d1 + 2, NULL, 2);
-                    count = ai;
-                    printf("Jumping to line: %d\n", count);
-                };
-            };
 
             if((strcmp(current, "TAC")) == 0){
-                int aj = (int)strtol(d1 + 2, NULL, 2);
-                if (count >= 0 && count <= 255) {
-                    mem[aj] = (uint8_t)count;
-                    printf("mem[%d] = %d\n", aj, count);
+                if (count >= 0 && count <= 65535) {
+                    uint16_t u16_count = (uint16_t)count;
+                    mem[1] = (uint8_t)((u16_count >> 8) & 0xFF);
+                    mem[0] = (uint8_t)(u16_count & 0xFF);
+                    printf("TAC: mem[1] = 0x%02X, mem[0] = 0x%02X (Counter: %d)\n", mem[1], mem[0], count);
                 } else {
                     printf("OVERFLOW - ESCAPE @ LINE %d\n", count + 1);
                     return 1;
                 };
             };
-            if((strcmp(current, "JMF")) == 0){
-                int ah = (int)strtol(d1 + 2, NULL, 2);
-                count = mem[ah];
+            if((strcmp(current, "JMP")) == 0){
+                count = (mem[1] << 8) | mem[0];
                 printf("Jumping to line: %d\n", count + 1);
             };
 
-            if((strcmp(current, "JZF")) == 0){
+            if((strcmp(current, "JZE")) == 0){
                 alu("zero");
                 if(aluz == 1){
-                    int ai = (int)strtol(d1 + 2, NULL, 2);
-                    count = mem[ai];
+                    count = (mem[1] << 8) | mem[0];
                     printf("Jumping to line: %d\n", count + 1);
                 };
             };

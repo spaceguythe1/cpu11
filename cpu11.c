@@ -123,11 +123,9 @@ int main(){
             clok();
             counter("upd", 0);
 
-            if (clockvalue == 0) {
-                usleep(10000);
-                printf("\n\n");
-                continue;
-            };
+        if (clockvalue == 1) {
+
+
 
 
             FILE *file = fopen(FILEquery, "r");
@@ -294,6 +292,7 @@ int main(){
 
             printf("\n");
             usleep(1000);
+        };
         };
 
     };

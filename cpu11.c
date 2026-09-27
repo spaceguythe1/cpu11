@@ -272,6 +272,23 @@ int main(){
                 };
             };
 
+            if((strcmp(current, "DIS")) == 0){
+                printf("----------------------\n");
+                for (int y = 0; y < 8; y++) {
+                    uint8_t x_val = mem[y];
+                    printf("Y%d | ", y);
+                    for (int x = 0; x < 256; x++) {
+                        if (x == x_val) {
+                            printf("#");
+                        } else {
+                            printf(".");
+                        }
+                    }
+                    printf("\n");
+                }
+                printf("----------------------\n");
+            };
+
 
             printf("\n");
             usleep(1000);

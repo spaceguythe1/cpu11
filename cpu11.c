@@ -278,9 +278,9 @@ int main(){
                     char line[] = "00000000";
                     for(int x = 0; x < 8; x++){
                         if ((z >> x) & 1) {
-                            line[x] = '#';
+                            line[x] = '##';
                         } else {
-                            line[x] = '.';
+                            line[x] = '  ';
                         };
                     };
                     printf("%s\n", line);

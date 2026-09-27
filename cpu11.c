@@ -273,20 +273,23 @@ int main(){
             };
 
             if((strcmp(current, "DIS")) == 0){
-                printf("----------------------\n");
-                for (int y = 0; y < 8; y++) {
-                    uint8_t x_val = mem[y];
-                    printf("Y%d | ", y);
-                    for (int x = 0; x < 256; x++) {
-                        if (x == x_val) {
+                printf("DIS - rendering mem[0..7] as (x=value, y=address)\n\n");
+                for(int y = 0; y < 8; y++){
+                    int x = mem[y];
+                    if(x > 7) x = 7; 
+
+                    printf("%d | ", y);
+                    for(int col = 0; col < 8; col++){
+                        if(col == x){
                             printf("#");
                         } else {
                             printf(".");
                         }
                     }
-                    printf("\n");
-                }
-                printf("----------------------\n");
+                    printf(" | mem[%d]=0b%08b\n", y, mem[y]);
+                    usleep(1000);
+                };
+                printf("\n");
             };
 
 

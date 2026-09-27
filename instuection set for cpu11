@@ -15,5 +15,5 @@ instuection set for cpu11
 (1100) JZE {d1} - Conditionally jump to $d1 if the Zero Flag is set.
 (1101) JMF {d1} - Like JMP, but it jumps to the value stored at address $d1
 (1110) JZF {d1} - Like JZE, but it jumps to the value stored at address $d1
-(1111) DIS - (Not Permanent) takes the first 8 memory addresses (00000000-00000111) and outputs then as a display-like image,
+(1111) DIS - takes the first 8 memory addresses (00000000-00000111) and outputs then as a display-like image,
  data inside the address is the x value, and the actual address is the y value

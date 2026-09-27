@@ -266,6 +266,7 @@ int main(){
             if((strcmp(current, "JZF")) == 0){
                 alu("zero");
                 if(aluz == 1){
+                    printf("DEBUG aluz:%i", aluz);
                     int ai = (int)strtol(d1 + 2, NULL, 2);
                     count = mem[ai];
                     printf("Jumping to line: %d\n", count + 1);

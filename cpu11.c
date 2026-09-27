@@ -289,6 +289,10 @@ int main(){
                 };
             };
 
+            if((strcmp(current, "BLK")) == 0){
+                printf("Instruction BLK, Nothing to do!");
+            };
+
 
             printf("\n");
             usleep(1000);

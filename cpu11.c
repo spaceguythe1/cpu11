@@ -57,15 +57,6 @@ void alu(char func[]){
             printf("aluz = 0\n");
         };
         printf("ALU STEP END\n");
-        if((strcmp(func,"addf")) == 0){
-            if(ADDFLAG == 0){
-                ADDFLAG = 1;
-            }
-            else if(ADDFLAG == 1){
-                ADDFLAG = 0;
-            };
-            printf("ADDFLAG = %i\n", ADDFLAG);
-        };
     };
 };
 
@@ -222,7 +213,13 @@ int main(){
                 accum = mem[ac];
                 printf("accum: 0b%08b\n", accum);
             };
-            
+
+            if((strcmp(current, "ADD")) == 0){
+                int ad = (int)strtol(d1 + 2, NULL, 2);
+                accum += mem[ad];
+                printf("accum: 0b%08b\n", accum);
+            };
+
             printf("\n");
 
             alu("step");

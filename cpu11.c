@@ -91,7 +91,7 @@ int main(){
         scanf("%s", FILEquery);
 
         if((strcmp(FILEquery, "x" ) == 0)){
-            strcpy(FILEquery, "/home/josep/cpu11/default.txt");
+            strcpy(FILEquery, "/home/joseph/cpu11/default.txt");
             printf("default file selected\n");
         };
 

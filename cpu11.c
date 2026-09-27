@@ -215,7 +215,7 @@ int main(){
 
             alu("step");
             printf("\n\n");
-            usleep(10000);
+            usleep(25000);
         };
 
     };

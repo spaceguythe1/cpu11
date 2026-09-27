@@ -274,7 +274,7 @@ int main(){
 
 
             printf("\n");
-            usleep(25000);
+            usleep(1000);
         };
 
     };

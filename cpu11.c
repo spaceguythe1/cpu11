@@ -293,7 +293,7 @@ int main(){
 
 
             printf("\n");
-            usleep(1000);
+            // usleep(1000);
         };
 
     };

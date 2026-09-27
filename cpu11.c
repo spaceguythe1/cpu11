@@ -237,6 +237,7 @@ int main(){
                 count = ah;
                 printf("Jumping to line: %d\n", count);
             };
+
             if((strcmp(current, "JZE")) == 0){
                 alu("zero");
                 if(aluz == 0){
@@ -246,9 +247,33 @@ int main(){
                 };
             };
 
-            printf("\n");
+            if((strcmp(current, "TAC")) == 0){
+                int aj = (int)strtol(d1 + 2, NULL, 2);
+                if (count >= 0 && count <= 255) {
+                    mem[aj] = (uint8_t)count;
+                    printf("mem[%d] = %d\n", aj, count);
+                } else {
+                    printf("OVERFLOW - ESCAPE @ LINE %d\n", count + 1);
+                    return 1;
+                };
+            };
+            if((strcmp(current, "JMF")) == 0){
+                int ah = (int)strtol(d1 + 2, NULL, 2);
+                count = mem[ah];
+                printf("Jumping to line: %d\n", count + 1);
+            };
 
-            printf("\n\n");
+            if((strcmp(current, "JZF")) == 0){
+                alu("zero");
+                if(aluz == 0){
+                    int ai = (int)strtol(d1 + 2, NULL, 2);
+                    count = mem[ai];
+                    printf("Jumping to line: %d\n", count + 1);
+                };
+            };
+
+
+            printf("\n");
             usleep(25000);
         };
 

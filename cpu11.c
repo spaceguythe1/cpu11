@@ -123,7 +123,6 @@ int main(){
         char buffer[256];
         int target_line;
         int current_line = 1;
-        int found = 0;
 
         while (1){
             clok();

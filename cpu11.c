@@ -288,6 +288,7 @@ int main(){
                 };
             };
             if((strcmp(current, "DIF")) == 0){
+                printf("-------------------------------");
                 system("clear");
                 for(int y = 0; y < 8; y++){
                     uint8_t z = mem[y];
@@ -301,6 +302,7 @@ int main(){
                     };
                     printf("%s\n", line);
                 };
+                printf("-------------------------------");
                 usleep(100000);
             };
             if((strcmp(current, "BLK")) == 0){

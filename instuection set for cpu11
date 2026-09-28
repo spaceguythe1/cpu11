@@ -12,9 +12,9 @@ instuection set for cpu11
 (1001) AND {d1} - Bitwise AND memory contents with Accumulator; then stores to accumilator.
 (1010) ORR {d1} - Bitwise OR memory contents with Accumulator; then stores to accumilator.
 (1011) JMP - Unconditionally sets the counter to mem[0] and mem[1] 
-- where mem[1] is the first 8 bits of a 16 bit number and mem[0] are the latter 8.
+- where mem[0] is the first 8 bits of a 16 bit number and mem[1] are the latter 8.
 (1100) JZE - Conditionally sets the counter to mem[0] and mem[1] 
-- where mem[1] is the first 8 bits of a 16 bit number and mem[0] are the latter 8; if the Zero Flag is set.
+- where mem[0] is the first 8 bits of a 16 bit number and mem[1] are the latter 8; if the Zero Flag is set.
 (1110) DIF - Like DIS, but clears the screen first.
 (1111) DIS - takes the first 8 memory addresses (00000000-00000111) and outputs then as a display-like image,
  data inside the address is the x value, and the actual address is the y value

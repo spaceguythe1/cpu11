@@ -301,7 +301,7 @@ int main(){
                     };
                     printf("%s\n", line);
                 };
-                usleep(100000)
+                usleep(100000);
             };
             if((strcmp(current, "BLK")) == 0){
                 printf("Instruction BLK, Nothing to do!");

@@ -1,257 +1,332 @@
-BLK
-LOD 00000001
-STA 00000000
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-CLR
-HAL
+LOD 00000001 ; const 1
+STA 00100001 
+LOD 10000000 ; sign bit mask
+STA 00100010 
+LOD 00011101 ; LFSR taps
+STA 00100011 
+LOD 00000111 ; coordinate mask
+STA 00100100 
+LOD 10001001 ; jump table base (low byte)
+STA 00100101 
+SCA          ; seed
+ORR 00100001 ; force seed != 0
+STA 00100000 
+LOD 00000101 ; number of lines
+STA 00110101 
+LOD 00011000 ; return address (low)
+STA 00101000 
+LOD 00000000 ; return address (high)
+STA 00110110 
+LOD 00100010 ; -> rand (low)
+STA 00000000 
+LOD 00000001 ; -> rand (high)
+STA 00000001 
+JMP          
+LDA 00100000 
+AND 00100100 
+STA 00101001 ; coordinate 0-7
+LOD 00100100 ; return address (low)
+STA 00101000 
+LOD 00000000 ; return address (high)
+STA 00110110 
+LOD 00100010 ; -> rand (low)
+STA 00000000 
+LOD 00000001 ; -> rand (high)
+STA 00000001 
+JMP          
+LDA 00100000 
+AND 00100100 
+STA 00101010 ; coordinate 0-7
+LOD 00110000 ; return address (low)
+STA 00101000 
+LOD 00000000 ; return address (high)
+STA 00110110 
+LOD 00100010 ; -> rand (low)
+STA 00000000 
+LOD 00000001 ; -> rand (high)
+STA 00000001 
+JMP          
+LDA 00100000 
+AND 00100100 
+STA 00101011 ; coordinate 0-7
+LOD 00111100 ; return address (low)
+STA 00101000 
+LOD 00000000 ; return address (high)
+STA 00110110 
+LOD 00100010 ; -> rand (low)
+STA 00000000 
+LOD 00000001 ; -> rand (high)
+STA 00000001 
+JMP          
+LDA 00100000 
+AND 00100100 
+STA 00101100 ; coordinate 0-7
+LOD 00000001 
+STA 00101111 ; sx = +1
+LDA 00101011 
+SUB 00101001 
+STA 00101101 ; dx = x1-x0
+LOD 01010000 ; -> xpos (low)
+STA 00000000 
+LOD 00000000 ; -> xpos (high)
+STA 00000001 
+LDA 00101101 
+AND 00100010 
+JZE          ; dx >= 0
+LDA 00101001 
+SUB 00101011 
+STA 00101101 ; dx = -dx
+LOD 11111111 
+STA 00101111 ; sx = -1
+LOD 00000001 
+STA 00110000 ; sy = +1
+LDA 00101100 
+SUB 00101010 
+STA 00100110 ; |dy| candidate
+LOD 01100001 ; -> ypos (low)
+STA 00000000 
+LOD 00000000 ; -> ypos (high)
+STA 00000001 
+LDA 00100110 
+AND 00100010 
+JZE          ; dy >= 0
+LDA 00101010 
+SUB 00101100 
+STA 00100110 ; |dy|
+LOD 11111111 
+STA 00110000 ; sy = -1
+LOD 00000000 
+SUB 00100110 
+STA 00101110 ; dy = -|dy|
+LDA 00101101 
+ADD 00101110 
+STA 00110001 ; err = dx+dy
+LOD 00000001 
+STA 00110011 
+LDA 00101001 
+STA 00110100 
+LOD 01111100 ; -> bdone (low)
+STA 00000000 
+LOD 00000000 ; -> bdone (high)
+STA 00000001 
+LDA 00110100 
+JZE          ; shifts done
+LDA 00110011 
+ADD 00110011 
+STA 00110011 ; B <<= 1
+LDA 00110100 
+SUB 00100001 
+STA 00110100 
+LOD 01101011 ; -> bloop (low)
+STA 00000000 
+LOD 00000000 ; -> bloop (high)
+STA 00000001 
+JMP          
+LOD 00000000 ; table page
+STA 00000001 
+LDA 00101010 
+ADD 00101010 ; acc += Y0 (8*Y0 total)
+ADD 00101010 ; acc += Y0 (8*Y0 total)
+ADD 00101010 ; acc += Y0 (8*Y0 total)
+ADD 00101010 ; acc += Y0 (8*Y0 total)
+ADD 00101010 ; acc += Y0 (8*Y0 total)
+ADD 00101010 ; acc += Y0 (8*Y0 total)
+ADD 00101010 ; acc += Y0 (8*Y0 total)
+ADD 00100101 
+STA 00000000 
+JMP          ; jump to leaf for row Y0
+LDA 00110011 ; plot row 0
+ORR 00010000 
+STA 00010000 
+LOD 11001001 ; -> plotdone (low)
+STA 00000000 
+LOD 00000000 ; -> plotdone (high)
+STA 00000001 
+JMP          
+LDA 00110011 ; plot row 1
+ORR 00010001 
+STA 00010001 
+LOD 11001001 ; -> plotdone (low)
+STA 00000000 
+LOD 00000000 ; -> plotdone (high)
+STA 00000001 
+JMP          
+LDA 00110011 ; plot row 2
+ORR 00010010 
+STA 00010010 
+LOD 11001001 ; -> plotdone (low)
+STA 00000000 
+LOD 00000000 ; -> plotdone (high)
+STA 00000001 
+JMP          
+LDA 00110011 ; plot row 3
+ORR 00010011 
+STA 00010011 
+LOD 11001001 ; -> plotdone (low)
+STA 00000000 
+LOD 00000000 ; -> plotdone (high)
+STA 00000001 
+JMP          
+LDA 00110011 ; plot row 4
+ORR 00010100 
+STA 00010100 
+LOD 11001001 ; -> plotdone (low)
+STA 00000000 
+LOD 00000000 ; -> plotdone (high)
+STA 00000001 
+JMP          
+LDA 00110011 ; plot row 5
+ORR 00010101 
+STA 00010101 
+LOD 11001001 ; -> plotdone (low)
+STA 00000000 
+LOD 00000000 ; -> plotdone (high)
+STA 00000001 
+JMP          
+LDA 00110011 ; plot row 6
+ORR 00010110 
+STA 00010110 
+LOD 11001001 ; -> plotdone (low)
+STA 00000000 
+LOD 00000000 ; -> plotdone (high)
+STA 00000001 
+JMP          
+LDA 00110011 ; plot row 7
+ORR 00010111 
+STA 00010111 
+LOD 11001001 ; -> plotdone (low)
+STA 00000000 
+LOD 00000000 ; -> plotdone (high)
+STA 00000001 
+JMP          
+LOD 00000010 ; -> nextline (low)
+STA 00000000 
+LOD 00000001 ; -> nextline (high)
+STA 00000001 
+LDA 00101001 
+SUB 00101011 
+STA 00100110 
+LDA 00101010 
+SUB 00101100 
+ORR 00100110 
+JZE          ; reached end point
+LDA 00110001 
+ADD 00110001 
+STA 00110010 ; e2 = 2*err
+LOD 11100100 ; -> dox (low)
+STA 00000000 
+LOD 00000000 ; -> dox (high)
+STA 00000001 
+LDA 00110010 
+SUB 00101110 
+AND 00100010 
+JZE          ; e2-dy >= 0
+LOD 11101010 ; -> afterx (low)
+STA 00000000 
+LOD 00000000 ; -> afterx (high)
+STA 00000001 
+JMP          
+LDA 00110001 
+ADD 00101110 
+STA 00110001 
+LDA 00101001 
+ADD 00101111 
+STA 00101001 
+LOD 11110111 ; -> doy (low)
+STA 00000000 
+LOD 00000000 ; -> doy (high)
+STA 00000001 
+LDA 00101101 
+SUB 00110010 
+AND 00100010 
+JZE          ; dx-e2 >= 0
+LOD 01100111 ; -> loop (low)
+STA 00000000 
+LOD 00000000 ; -> loop (high)
+STA 00000001 
+JMP          
+LDA 00110001 
+ADD 00101101 
+STA 00110001 
+LDA 00101010 
+ADD 00110000 
+STA 00101010 
+LOD 01100111 ; -> loop (low)
+STA 00000000 
+LOD 00000000 ; -> loop (high)
+STA 00000001 
+JMP          
+LDA 00110101 
+SUB 00100001 
+STA 00110101 
+LOD 00010000 ; -> fin (low)
+STA 00000000 
+LOD 00000001 ; -> fin (high)
+STA 00000001 
+LDA 00110101 
+JZE          ; all lines drawn
+LOD 00001111 ; -> again (low)
+STA 00000000 
+LOD 00000000 ; -> again (high)
+STA 00000001 
+JMP          
+LDA 00010000 
+STA 00000000 ; copy to display rows
+LDA 00010001 
+STA 00000001 ; copy to display rows
+LDA 00010010 
+STA 00000010 ; copy to display rows
+LDA 00010011 
+STA 00000011 ; copy to display rows
+LDA 00010100 
+STA 00000100 ; copy to display rows
+LDA 00010101 
+STA 00000101 ; copy to display rows
+LDA 00010110 
+STA 00000110 ; copy to display rows
+LDA 00010111 
+STA 00000111 ; copy to display rows
+DIS          
+HAL          
+LOD 00001000 ; step counter
+STA 00100111 
+LDA 00100000 
+AND 00100010 
+STA 00100110 ; T = old top bit
+LDA 00100000 
+ADD 00100000 
+STA 00100000 ; S <<= 1
+LOD 00111001 ; -> skip (low)
+STA 00000000 
+LOD 00000001 ; -> skip (high)
+STA 00000001 
+LDA 00100110 
+JZE          ; no top bit -> skip xor
+LDA 00100000 
+ORR 00100011 
+STA 00100110 ; T = S|P
+LDA 00100000 
+AND 00100011 
+STA 00100000 ; S = S&P
+LDA 00100110 
+SUB 00100000 
+STA 00100000 ; S = S^P
+LDA 00100111 
+SUB 00100001 
+STA 00100111 
+LOD 01000111 ; -> rdone (low)
+STA 00000000 
+LOD 00000001 ; -> rdone (high)
+STA 00000001 
+LDA 00100111 
+JZE          ; 8 steps done
+LOD 00100100 ; -> step (low)
+STA 00000000 
+LOD 00000001 ; -> step (high)
+STA 00000001 
+JMP          
+LDA 00101000 
+STA 00000000 
+LDA 00110110 
+STA 00000001 
+JMP          ; return

@@ -71,13 +71,11 @@ int main(){
     printf("------------\n");
     printf("\n");
     printf("run - runs the cpu based off a text file\n");
-    printf("qrun - exactly like run, but dosent show all the info.\n");
-
     scanf("%s", UPPERquery);
     printf("you have selected = %s\n", UPPERquery);
     usleep(50000);
 
-    if((strcmp(UPPERquery, "run" ) == 0) || (strcmp(UPPERquery, "qrun" ) == 0)){
+    if((strcmp(UPPERquery, "run" ) == 0) || (strcmp(UPPERquery, "hahasecret" ) == 0)){
         printf("File to run (include /x/y/z.txt to make sure it works): ");
         scanf("%s", FILEquery);
 
@@ -157,17 +155,13 @@ int main(){
                 current_line++;
             }
             fclose(file);
-            if((strcmp(UPPERquery, "qrun") == 1)){
             printf("Executing line: %s", buffer);
-            };
 
             current[0] = buffer[0];
             current[1] = buffer[1];
             current[2] = buffer[2];
-            if((strcmp(UPPERquery, "qrun") == 1)){
             printf("\n");
             printf("INSTRUCT: %s\n", current);
-            };
             d1[2] = buffer[4];
             d1[3] = buffer[5];
             d1[4] = buffer[6];
@@ -193,26 +187,18 @@ int main(){
             };
             if((strcmp(current, "LOD")) == 0){
                 accum = (uint8_t)strtol(d1, NULL, 2);
-                if((strcmp(UPPERquery, "qrun") == 1)){
                 printf("accum: 0b%08b\n", accum);
-                };
             };
             if((strcmp(current, "CLR")) == 0){
                 for(int i = 0; i < 256; i++){
                     if(i % 10 == 0){
-                        if((strcmp(UPPERquery, "qrun") == 1)){
                         printf("0b%08b\n", mem[i]);
-                        };
                     }
                     else if(i != 0){
-                        if((strcmp(UPPERquery, "qrun") == 1)){
                         printf("0b%08b ", mem[i]);
-                        };
                     }
                     else if(i == 0){
-                        if((strcmp(UPPERquery, "qrun") == 1)){
                         printf("\n0b%08b", mem[i]);
-                        };
                     };
                     mem[i] = 0b00000000;
                     usleep(1000);
@@ -231,47 +217,35 @@ int main(){
 
                 int ab = (int)strtol(aa, NULL, 2);
                 mem[ab] = accum;
-                if((strcmp(UPPERquery, "qrun") == 1)){
                 printf("MEM CHANGE @%s, SET TO 0b%08b\n", aa, accum);
-                };
             };
 
             if((strcmp(current, "LDA")) == 0){
                 int ac = (int)strtol(d1 + 2, NULL, 2);
                 accum = mem[ac];
-                if((strcmp(UPPERquery, "qrun") == 1)){
                 printf("accum: 0b%08b\n", accum);
-                };
             };
 
             if((strcmp(current, "ADD")) == 0){
                 int ad = (int)strtol(d1 + 2, NULL, 2);
                 accum += mem[ad];
-                if((strcmp(UPPERquery, "qrun") == 1)){
                 printf("accum: 0b%08b\n", accum);
-                };
             };
             
             if((strcmp(current, "SUB")) == 0){
                 int ae = (int)strtol(d1 + 2, NULL, 2);
                 accum -= mem[ae];
-                if((strcmp(UPPERquery, "qrun") == 1)){
                 printf("accum: 0b%08b\n", accum);
-                };
             };
             if((strcmp(current, "AND")) == 0 ){
                 int af = (int)strtol(d1 + 2, NULL, 2);
                 accum &= mem[af];
-                if((strcmp(UPPERquery, "qrun") == 1)){
                 printf("accum: 0b%08b\n", accum);
-                };
             };
             if((strcmp(current, "ORR")) == 0){
                 int ag = (int)strtol(d1 + 2, NULL, 2);
                 accum |= mem[ag];
-                if((strcmp(UPPERquery, "qrun") == 1)){
                 printf("accum: 0b%08b\n", accum);
-                }
             };
 
             if((strcmp(current, "TAC")) == 0){
@@ -279,30 +253,22 @@ int main(){
                     uint16_t u16_count = (uint16_t)count;
                     mem[1] = (uint8_t)((u16_count >> 8) & 0xFF);
                     mem[0] = (uint8_t)(u16_count & 0xFF);
-                    if((strcmp(UPPERquery, "qrun") == 1)){
                     printf("TAC: mem[1] = 0x%02X, mem[0] = 0x%02X (Counter: %d)\n", mem[1], mem[0], count);
-                    };
                 } else {
-                    if((strcmp(UPPERquery, "qrun") == 1)){
                     printf("OVERFLOW - ESCAPE @ LINE %d\n", count + 1);
-                    };
                     return 1;
                 };
             };
             if((strcmp(current, "JMP")) == 0){
                 count = (mem[1] << 8) | mem[0];
-                if((strcmp(UPPERquery, "qrun") == 1)){
                 printf("Jumping to line: %d\n", count + 1);
-                }
             };
 
             if((strcmp(current, "JZE")) == 0){
                 alu("zero");
                 if(aluz == 1){
                     count = (mem[1] << 8) | mem[0];
-                    if((strcmp(UPPERquery, "qrun") == 1)){
                     printf("Jumping to line: %d\n", count + 1);
-                    }
                 };
             };
 
@@ -340,9 +306,7 @@ int main(){
                 usleep(100000);
             };
             if((strcmp(current, "BLK")) == 0){
-                if((strcmp(UPPERquery, "qrun") == 1)){
                 printf("Instruction BLK, Nothing to do!");
-                }
             };
 
             printf("\n");

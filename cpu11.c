@@ -289,7 +289,7 @@ int main(){
             };
             if((strcmp(current, "DIF")) == 0){
                 printf("-------------------");
-                system("clear");
+                // system("clear");
                 for(int y = 0; y < 8; y++){
                     uint8_t z = mem[y];
                     char line[] = "00000000";

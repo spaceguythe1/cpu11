@@ -88,6 +88,14 @@ int main(){
             strcpy(FILEquery, "/home/joseph/cpu11/fibbonacci.txt");
             printf("default file selected\n");
         };
+        if((strcmp(FILEquery, "line" ) == 0)){
+            strcpy(FILEquery, "/home/joseph/cpu11/line.txt");
+            printf("default file selected\n");
+        };
+        if((strcmp(FILEquery, "badapple" ) == 0)){
+            strcpy(FILEquery, "/home/joseph/cpu11/apple.txt");
+            printf("default file selected\n");
+        };
 
         FILE *fiee = fopen(FILEquery, "r");
 
@@ -279,7 +287,21 @@ int main(){
                     printf("%s\n", line);
                 };
             };
-
+            if((strcmp(current, "DIF")) == 0){
+                system("clear");
+                for(int y = 0; y < 8; y++){
+                    uint8_t z = mem[y];
+                    char line[] = "00000000";
+                    for(int x = 0; x < 8; x++){
+                        if ((z >> x) & 1) {
+                            line[x] = '#';
+                        } else {
+                            line[x] = ' ';
+                        };
+                    };
+                    printf("%s\n", line);
+                };
+            };
             if((strcmp(current, "BLK")) == 0){
                 printf("Instruction BLK, Nothing to do!");
             };

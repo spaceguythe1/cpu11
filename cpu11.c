@@ -79,21 +79,14 @@ int main(){
         printf("File to run (include /x/y/z.txt to make sure it works): ");
         scanf("%s", FILEquery);
 
-        if((strcmp(FILEquery, "line" ) == 0)){
-            strcpy(FILEquery, "/home/joseph/cpu11/line.txt");
-            printf("default file selected\n");
-        };
         if((strcmp(FILEquery, "fibb" ) == 0)){
             strcpy(FILEquery, "/home/joseph/cpu11/fibbonacci.txt");
-            printf("default file selected\n");
         };
         if((strcmp(FILEquery, "line" ) == 0)){
             strcpy(FILEquery, "/home/joseph/cpu11/line.txt");
-            printf("default file selected\n");
         };
         if((strcmp(FILEquery, "badapple" ) == 0)){
             strcpy(FILEquery, "/home/joseph/cpu11/apple.txt");
-            printf("default file selected\n");
         };
 
         FILE *fiee = fopen(FILEquery, "r");

@@ -281,14 +281,22 @@ int main(){
             if((strcmp(current, "DIF")) == 0){
                 printf("-------------------");
                 system("clear");
-                for(int y = 0; y < 8; y++){
-                    uint8_t z = mem[y];
-                    char line[] = "00000000";
+                for(int y = 0; y < 16; y++){
+                    uint8_t z = mem[y*2];
+                    uint8_t zx = mem[(y*2)+1];
+                    char line[] = "0000000000000000";
                     for(int x = 0; x < 8; x++){
                         if ((z >> x) & 1) {
                             line[x] = '#';
                         } else {
                             line[x] = ' ';
+                        };
+                    };
+                    for(int x = 0; x < 8; x++){
+                        if ((zx >> x) & 1) {
+                            line[x+8] = '#';
+                        } else {
+                            line[x+8] = ' ';
                         };
                     };
                     printf("%s\n", line);

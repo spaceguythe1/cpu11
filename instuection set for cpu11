@@ -15,6 +15,6 @@ instuection set for cpu11
 - where mem[0] is the first 8 bits of a 16 bit number and mem[1] are the latter 8.
 (1100) JZE - Conditionally sets the counter to mem[0] and mem[1] 
 - where mem[0] is the first 8 bits of a 16 bit number and mem[1] are the latter 8; if the Zero Flag is set.
-(1110) DIF - Like DIS, but clears the screen first.
+(1110) DIF - Like DIS, but clears the screen first (and is 16x16).
 (1111) DIS - takes the first 8 memory addresses (00000000-00000111) and outputs then as a display-like image,
  data inside the address is the x value, and the actual address is the y value

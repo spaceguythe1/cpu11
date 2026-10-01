@@ -10,10 +10,6 @@ int clockvalue = 0;
 int count = 0;
 int aluz;
 
-// im listening to bad apple lol
-
-// it fucking slaps damn
-
 void clok(){
 
     if(clockvalue == 0){

@@ -302,7 +302,6 @@ int main(){
             };
 
             printf("\n");
-            usleep(1000);
         };
         };
 

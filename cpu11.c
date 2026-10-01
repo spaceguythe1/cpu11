@@ -295,7 +295,7 @@ int main(){
                 };
                 printf("-------------------");
                 printf("count: %i", count);
-                usleep(100000);
+                usleep(10000);
             };
             if((strcmp(current, "BLK")) == 0){
                 printf("Instruction BLK, Nothing to do!");

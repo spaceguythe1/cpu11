@@ -100,7 +100,6 @@ int main(){
         char bugger[256];
         while (fgets(bugger, sizeof(bugger), fiee) != NULL) {
             printf("%s", bugger);
-            usleep(10000);
         };
 
         usleep(10000);

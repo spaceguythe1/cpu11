@@ -75,8 +75,8 @@ int main(){
         printf("File to run (include /x/y/z.txt to make sure it works): ");
         scanf("%s", FILEquery);
 
-        if((strcmp(FILEquery, "fibb" ) == 0)){
-            strcpy(FILEquery, "/home/joseph/cpu11/fibbonacci.txt");
+        if((strcmp(FILEquery, "snake" ) == 0)){
+            strcpy(FILEquery, "/home/joseph/cpu11/snake.txt");
         };
         if((strcmp(FILEquery, "line" ) == 0)){
             strcpy(FILEquery, "/home/joseph/cpu11/line.txt");

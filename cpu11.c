@@ -290,7 +290,7 @@ int main(){
                         char df = alpha[letternum];
                         printf("%c", df);
                     }
-                    else{
+                    else if(letternum == 0){
                         printf("\n");
                     };
                 usleep(10000);

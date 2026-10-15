@@ -1,69 +1,50 @@
 # cpu11
 
-A small, experimental custom CPU emulator written in C. This project is a toy CPU design and runtime for executing simple instruction streams from text files, with a minimal instruction set and a very lightweight emulator loop.
+**cpu11** is a small experimental CPU emulator written in C. It loads instruction streams from text files and runs them through a simple clock-driven execution loop. The project is intended for learning and experimentation, not as a general-purpose processor.
 
-## What this project does
+## Overview
 
-`cpu11.c` contains a simple command-line simulator that:
+The command-line program in `cpu11.c` reads a program file and executes its instructions using an accumulator and a simulated memory array. The current instruction set is intentionally small, with basic load, store, clear, and halt operations.
 
-- prompts for a command
-- reads a text file containing CPU instructions
-- executes each instruction in a clock-driven loop
-- tracks a simple accumulator and memory array
-- supports a few basic operations such as load, store, clear, halt, and memory access
+## Project files
 
-This is not a full general-purpose processor or production-grade architecture; it is a learning project and a playful custom CPU design.
-
-## Repository contents
-
-- `cpu11.c` — main emulator implementation
-- `default.txt` — example CPU program used by the emulator
-- `buildcpu11.sh` — quick build script
-- `instuection set for cpu11` — notes on the instruction set
-- `README.md` — project overview and usage
-
-## Features
-
-- tiny custom instruction set
-- accumulator-based CPU behavior
-- simple text-file based program loading
-- memory simulation using a byte array
-- clock/counter loop for sequential instruction execution
-- easy build and run flow for experimentation
+- `cpu11.c` — emulator implementation
+- `default.txt` — sample program
+- `buildcpu11.sh` — build script
+- `instuection set for cpu11` — instruction-set notes
 
 ## Build
 
-From the project root, run:
+Compile from the project directory with a C23-capable GCC:
 
-```bash
+```sh
 gcc -std=c23 -Wall -Wextra cpu11.c -o cpu11
 ```
 
-Or use the included script:
+Alternatively, run the included build script:
 
-```bash
+```sh
 ./buildcpu11.sh
 ```
 
 ## Run
 
-```bash
+Start the emulator:
+
+```sh
 ./cpu11
 ```
 
-When prompted, choose `run` and provide a file path such as:
+At the prompt, enter `run`, then provide a program path. Enter `x` to try the built-in default file path, or enter the path to a program file:
 
-```bash
-./cpu11
+```text
 run
-x 
+x
 ```
-
-If you type `x`, the program attempts to use the built-in default file path; or provide a valid program path
 
 ## Example program
 
-The included `default.txt` contains a simple program like this:
+`default.txt` demonstrates the current instruction format:
 
 ```text
 BLK
@@ -77,40 +58,25 @@ BLK
 HAL
 ```
 
-## Instruction set
+## Instructions
 
-This project uses a minimal custom set, as described in the instruction notes file. The implemented/recognized instructions include:
+The currently implemented or recognized instructions are:
 
-- `BLK` — no-op / placeholder instruction
-- `HAL` — halt execution
-- `LOD {d1}` — load a bit pattern into the accumulator
-- `CLR` — clear memory state
-- `LDA {d1}` — load value from memory into accumulator
-- `STA {d1}` — store accumulator value into memory
+| Instruction | Purpose |
+| --- | --- |
+| `BLK` | No-op / placeholder |
+| `HAL` | Stop execution |
+| `LOD {d1}` | Load a bit pattern into the accumulator |
+| `CLR` | Clear memory state |
+| `LDA {d1}` | Load a value from memory into the accumulator |
+| `STA {d1}` | Store the accumulator value in memory |
 
-The notes file also lists more advanced opcodes planned for future expansion, including arithmetic and branching instructions such as `ADD`, `SUB`, `AND`, `OR`, `JMP`, and `JZE`.
+The instruction notes also describe possible future opcodes, including `ADD`, `SUB`, `AND`, `OR`, `JMP`, and `JZE`; these are not presented here as implemented features.
 
-## Notes
+## Scope
 
-This repository is intentionally small and experimental. It’s a good example of a custom CPU toy project for learning about:
-
-- instruction decoding
-- accumulator architecture
-- memory addressing
-- simple emulation loops
-- CPU-style execution flow
-
-## Future ideas
-
-Possible improvements for a next iteration:
-
-- proper instruction parsing and validation
-- support for more opcodes and registers
-- command-line argument parsing
-- error messages and debugging output
-- assembler or textual machine code format with labels
-- better documentation and a clearer architecture spec
+cpu11 is a compact project for exploring instruction decoding, accumulator-based execution, memory addressing, and emulator loops. Potential areas for development include stricter instruction parsing, additional opcodes and registers, command-line arguments, diagnostics, and an assembler with labels.
 
 ## License
 
-No explicit license file is included in this repository. Treat the project as experimental code for learning and personal use unless otherwise specified.
+No license file is included. Check with the project owner before redistributing or reusing the code.

@@ -241,7 +241,7 @@ int main(){
                     mem[0] = (uint8_t)(u16_count & 0xFF);
                     // printf("TAC: mem[1] = 0x%02X, mem[0] = 0x%02X (Counter: %d)\n", mem[1], mem[0], count);
                 } else {
-                    // printf("OVERFLOW - ESCAPE @ LINE %d\n", count + 1);
+                    printf("OVERFLOW - ESCAPE @ LINE %d\n", count + 1);
                     return 1;
                 };
             };

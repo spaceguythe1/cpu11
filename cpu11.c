@@ -295,6 +295,9 @@ int main(){
                     };
                 usleep(10000);
             };
+            if((strcmp(current, "WIP")) == 0){
+                system("clear");
+            };
 
         };
         };

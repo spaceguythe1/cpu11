@@ -119,12 +119,20 @@ int main(){
         lines = malloc(capl * sizeof(char*));
         {
             FILE *pf = fopen(FILEquery, "r");
-            char tmp[256];
-            while (fgets(tmp, sizeof(tmp), pf)) {
-            if (nlines == capl) { capl *= 2; lines = realloc(lines, capl * sizeof(char*)); }
-            lines[nlines++] = strdup(tmp);
-        }
-        fclose(pf);
+            if (pf != NULL) {
+                char tmp[256];
+                while (fgets(tmp, sizeof(tmp), pf)) {
+                    tmp[strcspn(tmp, "\r\n")] = 0;
+                    if (strlen(tmp) == 0) continue;
+
+                    if (nlines >= capl) { 
+                        capl *= 2; 
+                        lines = realloc(lines, capl * sizeof(char*)); 
+                    }
+                    lines[nlines++] = strdup(tmp);
+                }
+                fclose(pf);
+            }
         }
         
 
@@ -140,8 +148,13 @@ int main(){
             // printf("looking for line: %i\n", target_line);
             // printf("Executing line: %s", buffer);
 
-            if (count >= 1 && count <= nlines) strcpy(buffer, lines[count-1]);
-            else strcpy(buffer, "HAL 00000000");
+            if (nlines > 0 && count >= 1 && count <= nlines) {
+                strcpy(buffer, lines[count-1]);
+            } 
+            else {
+                printf("ERROR: Out of bounds or empty! count=%d, nlines=%d\n", count, nlines);
+                strcpy(buffer, "HAL 00000000");
+            };
 
             current[0] = buffer[0];
             current[1] = buffer[1];

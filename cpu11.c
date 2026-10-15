@@ -142,8 +142,6 @@ int main(){
 
 
 
-            FILE *file = fopen(FILEquery, "r");
-
             found = 0;
             target_line = count;
             current_line = 1;
@@ -285,10 +283,9 @@ int main(){
                     else if(letternum == 0){
                         printf("\n");
                     };
-                usleep(10000);
             };
             if((strcmp(current, "WIP")) == 0){
-                system("clear");
+                printf("\033[H\033[J");
             };
 
         };

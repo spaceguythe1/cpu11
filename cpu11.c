@@ -277,18 +277,18 @@ int main(){
             };
             if((strcmp(current, "YEL")) == 0){
                     char cutd1[] = "00000000";
-                    d1[2] = buffer[0];
-                    d1[3] = buffer[1];
-                    d1[4] = buffer[2];
-                    d1[5] = buffer[3];
-                    d1[6] = buffer[4];
-                    d1[7] = buffer[5];
-                    d1[8] = buffer[6];
-                    d1[9] = buffer[7];
+                    d1[2] = cutd1[0];
+                    d1[3] = cutd1[1];
+                    d1[4] = cutd1[2];
+                    d1[5] = cutd1[3];
+                    d1[6] = cutd1[4];
+                    d1[7] = cutd1[5];
+                    d1[8] = cutd1[6];
+                    d1[9] = cutd1[7];
                     int letternum = strtol(cutd1, NULL, 2);
                     if(letternum != 0){
                         char df = alpha[letternum];
-                        printf(df);
+                        printf("%c", df);
                     }
                     else{
                         printf("\n");

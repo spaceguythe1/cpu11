@@ -18,5 +18,5 @@ instuection set for cpu11
 (1110) DIF - takes the first 16 memory addresses and outputs then as a display-like image,
  data inside the address is the x value, and the actual address / 2 is the y value
 (1111) YEL {d1} - Prints character d1, d1 is converted to decimal and pulls from this list of characters;
-where the first position is 00000001, to draw a new line 00000000 is used: " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!?;:,."
+where the first position is 00000001, to draw a new line 00000000 is used: " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!?;:,.#"
 

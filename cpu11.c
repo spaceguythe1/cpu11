@@ -110,7 +110,7 @@ int main(){
         char aa[9];
         printf("char current[] = ''bbb'';\n");
         usleep(1000);
-        char alpha[] = "  abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!?;:,.";
+        char alpha[] = "  abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!?;:,.#";
         usleep(1000);
         printf("EMUL START \n\n\n");
         sleep(1);

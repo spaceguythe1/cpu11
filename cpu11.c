@@ -99,10 +99,10 @@ int main(){
         };
 
         usleep(10000);
-        system("clear");
         printf("\n");
 
         uint8_t mem[256] = {0b00000000};
+        system("clear");
         printf("int mem[256] = {00000000};\n");
         usleep(1000);
         char current[] = "bbb";
@@ -171,7 +171,7 @@ int main(){
                 accum = bb;
             };
             if((strcmp(current, "HAL")) == 0){
-                printf("Halting...\n");
+                printf("\nHalting...\n");
                 return 0;
             };
             if((strcmp(current, "LOD")) == 0){

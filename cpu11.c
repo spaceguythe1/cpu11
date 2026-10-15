@@ -283,7 +283,7 @@ int main(){
             };
             if((strcmp(current, "WIP")) == 0){
                 fflush(stdout);      
-                usleep(100000);       
+                usleep(10000);       
                 printf("\033[H\033[J");
                 fflush(stdout);
             };

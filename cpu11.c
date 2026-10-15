@@ -19,7 +19,7 @@ void clok(){
         clockvalue = 0;
     };
 
-    printf("CLOK = %i\n", clockvalue);
+    // printf("CLOK = %i\n", clockvalue);
 
 };
 
@@ -27,13 +27,13 @@ void counter(char func[], int set){
 
     if(((strcmp(func, "upd")) == 0)){
         if(clockvalue == 0){
-            printf("clock is drop\n");
+            // printf("clock is drop\n");
         }
         if(clockvalue == 1){
             count += 1;
-            printf("clock is up (good) \n");
+            // printf("clock is up (good) \n");
         }
-        printf("COUNT %i\n", count);
+        // printf("COUNT %i\n", count);
     };
     if(((strcmp(func, "set")) == 0)){
         count = set;
@@ -46,11 +46,11 @@ void alu(char func[]){
         printf("Checking for zero...\n");
         if(accum == 0b00000000){
             aluz = 1;
-            printf("aluz = 1\n");
+            // printf("aluz = 1\n");
         };
         if(accum != 0b00000000){
             aluz = 0;
-            printf("aluz = 0\n");
+            // printf("aluz = 0\n");
         };
     };
 };
@@ -110,6 +110,7 @@ int main(){
         char aa[9];
         printf("char current[] = ''bbb'';\n");
         usleep(1000);
+        char alpha[] = "  abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!?;:,.";
         usleep(1000);
         printf("EMUL START \n\n\n");
         sleep(1);
@@ -134,7 +135,7 @@ int main(){
             found = 0;
             target_line = count;
             current_line = 1;
-            printf("looking for line: %i\n", target_line);
+            // printf("looking for line: %i\n", target_line);
             while (fgets(buffer, sizeof(buffer), file) != NULL) {
                 if (current_line == target_line) {
                     found = 1;
@@ -143,13 +144,13 @@ int main(){
                 current_line++;
             }
             fclose(file);
-            printf("Executing line: %s", buffer);
+            // printf("Executing line: %s", buffer);
 
             current[0] = buffer[0];
             current[1] = buffer[1];
             current[2] = buffer[2];
             printf("\n");
-            printf("INSTRUCT: %s\n", current);
+            // printf("INSTRUCT: %s\n", current);
             d1[2] = buffer[4];
             d1[3] = buffer[5];
             d1[4] = buffer[6];
@@ -158,7 +159,7 @@ int main(){
             d1[7] = buffer[9];
             d1[8] = buffer[10];
             d1[9] = buffer[11];
-            printf("D1 = %s\n", d1);
+            // printf("D1 = %s\n", d1);
 
             // strcmp my beloved =0 enemy =1
 
@@ -175,7 +176,7 @@ int main(){
             };
             if((strcmp(current, "LOD")) == 0){
                 accum = (uint8_t)strtol(d1, NULL, 2);
-                printf("accum: 0b%08b\n", accum);
+                // printf("accum: 0b%08b\n", accum);
             };
             if((strcmp(current, "CLR")) == 0){
                 for(int i = 0; i < 256; i++){
@@ -205,35 +206,35 @@ int main(){
 
                 int ab = (int)strtol(aa, NULL, 2);
                 mem[ab] = accum;
-                printf("MEM CHANGE @%s, SET TO 0b%08b\n", aa, accum);
+                // printf("MEM CHANGE @%s, SET TO 0b%08b\n", aa, accum);
             };
 
             if((strcmp(current, "LDA")) == 0){
                 int ac = (int)strtol(d1 + 2, NULL, 2);
                 accum = mem[ac];
-                printf("accum: 0b%08b\n", accum);
+                // printf("accum: 0b%08b\n", accum);
             };
 
             if((strcmp(current, "ADD")) == 0){
                 int ad = (int)strtol(d1 + 2, NULL, 2);
                 accum += mem[ad];
-                printf("accum: 0b%08b\n", accum);
+                // printf("accum: 0b%08b\n", accum);
             };
             
             if((strcmp(current, "SUB")) == 0){
                 int ae = (int)strtol(d1 + 2, NULL, 2);
                 accum -= mem[ae];
-                printf("accum: 0b%08b\n", accum);
+                // printf("accum: 0b%08b\n", accum);
             };
             if((strcmp(current, "AND")) == 0 ){
                 int af = (int)strtol(d1 + 2, NULL, 2);
                 accum &= mem[af];
-                printf("accum: 0b%08b\n", accum);
+                // printf("accum: 0b%08b\n", accum);
             };
             if((strcmp(current, "ORR")) == 0){
                 int ag = (int)strtol(d1 + 2, NULL, 2);
                 accum |= mem[ag];
-                printf("accum: 0b%08b\n", accum);
+                // printf("accum: 0b%08b\n", accum);
             };
 
             if((strcmp(current, "TAC")) == 0){
@@ -241,22 +242,22 @@ int main(){
                     uint16_t u16_count = (uint16_t)count;
                     mem[1] = (uint8_t)((u16_count >> 8) & 0xFF);
                     mem[0] = (uint8_t)(u16_count & 0xFF);
-                    printf("TAC: mem[1] = 0x%02X, mem[0] = 0x%02X (Counter: %d)\n", mem[1], mem[0], count);
+                    // printf("TAC: mem[1] = 0x%02X, mem[0] = 0x%02X (Counter: %d)\n", mem[1], mem[0], count);
                 } else {
-                    printf("OVERFLOW - ESCAPE @ LINE %d\n", count + 1);
+                    // printf("OVERFLOW - ESCAPE @ LINE %d\n", count + 1);
                     return 1;
                 };
             };
             if((strcmp(current, "JMP")) == 0){
                 count = (mem[1] << 8) | mem[0];
-                printf("Jumping to line: %d\n", count + 1);
+                // printf("Jumping to line: %d\n", count + 1);
             };
 
             if((strcmp(current, "JZE")) == 0){
                 alu("zero");
                 if(aluz == 1){
                     count = (mem[1] << 8) | mem[0];
-                    printf("Jumping to line: %d\n", count + 1);
+                    // printf("Jumping to line: %d\n", count + 1);
                 };
             };
 
@@ -274,33 +275,25 @@ int main(){
                     printf("%s\n", line);
                 };
             };
-            if((strcmp(current, "DIF")) == 0){
-                system("clear");
-                for(int y = 0; y < 16; y++){
-                    uint8_t z = mem[y*2];
-                    uint8_t zx = mem[(y*2)+1];
-                    char line[] = "0000000000000000";
-                    for(int x = 0; x < 8; x++){
-                        if ((z >> x) & 1) {
-                            line[x] = '#';
-                        } else {
-                            line[x] = ' ';
-                        };
+            if((strcmp(current, "YEL")) == 0){
+                    char cutd1[] = "00000000";
+                    d1[2] = buffer[0];
+                    d1[3] = buffer[1];
+                    d1[4] = buffer[2];
+                    d1[5] = buffer[3];
+                    d1[6] = buffer[4];
+                    d1[7] = buffer[5];
+                    d1[8] = buffer[6];
+                    d1[9] = buffer[7];
+                    int letternum = strtol(cutd1, NULL, 2);
+                    if(letternum != 0){
+                        char df = alpha[letternum];
+                        printf(df);
+                    }
+                    else{
+                        printf("\n");
                     };
-                    for(int x = 0; x < 8; x++){
-                        if ((zx >> x) & 1) {
-                            line[x+8] = '#';
-                        } else {
-                            line[x+8] = ' ';
-                        };
-                    };
-                    printf("%s\n", line);
-                };
-                printf("count: %i\n", count);
                 usleep(10000);
-            };
-            if((strcmp(current, "BLK")) == 0){
-                printf("Instruction BLK, Nothing to do!");
             };
 
             printf("\n");

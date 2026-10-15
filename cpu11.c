@@ -279,7 +279,7 @@ int main(){
             };
             if((strcmp(current, "WIP")) == 0){
                 fflush(stdout);      
-                usleep(10000);       
+                usleep(50000);       
                 printf("\033[H\033[J");
                 fflush(stdout);
             };

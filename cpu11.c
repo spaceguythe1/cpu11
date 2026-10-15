@@ -296,7 +296,6 @@ int main(){
                 usleep(10000);
             };
 
-            printf("\n");
         };
         };
 

@@ -117,9 +117,19 @@ int main(){
 
         // load txt file
         char buffer[256];
-        int target_line;
-        int current_line = 1;
-        int found = 0;
+
+
+        char **lines = NULL; int nlines = 0, capl = 1024;
+        lines = malloc(capl * sizeof(char*));
+        {
+            FILE *pf = fopen(FILEquery, "r");
+            char tmp[256];
+            while (fgets(tmp, sizeof(tmp), pf)) {
+            if (nlines == capl) { capl *= 2; lines = realloc(lines, capl * sizeof(char*)); }
+            lines[nlines++] = strdup(tmp);
+        }
+        fclose(pf);
+        }
         
 
         while (1){
@@ -131,21 +141,11 @@ int main(){
 
 
 
-            FILE *file = fopen(FILEquery, "r");
-
-            found = 0;
-            target_line = count;
-            current_line = 1;
             // printf("looking for line: %i\n", target_line);
-            while (fgets(buffer, sizeof(buffer), file) != NULL) {
-                if (current_line == target_line) {
-                    found = 1;
-                    break;
-                }
-                current_line++;
-            }
-            fclose(file);
             // printf("Executing line: %s", buffer);
+
+            if (count >= 1 && count <= nlines) strcpy(buffer, lines[count-1]);
+            else strcpy(buffer, "HAL 00000000");
 
             current[0] = buffer[0];
             current[1] = buffer[1];
@@ -282,7 +282,9 @@ int main(){
                     };
             };
             if((strcmp(current, "WIP")) == 0){
-                printf("\033[H\033[J");   
+                printf("\033[H\033[J");
+                fflush(stdout);
+                usleep(10000);    
             };
 
         };

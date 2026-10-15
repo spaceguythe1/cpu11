@@ -149,7 +149,7 @@ int main(){
             current[0] = buffer[0];
             current[1] = buffer[1];
             current[2] = buffer[2];
-            printf("\n");
+            // printf("\n");
             // printf("INSTRUCT: %s\n", current);
             d1[2] = buffer[4];
             d1[3] = buffer[5];

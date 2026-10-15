@@ -171,7 +171,7 @@ int main(){
                 accum = bb;
             };
             if((strcmp(current, "HAL")) == 0){
-                printf("Halting...\n");
+                printf("\nHalting...\n");
                 return 0;
             };
             if((strcmp(current, "LOD")) == 0){

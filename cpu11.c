@@ -121,6 +121,18 @@ int main(){
         int current_line = 1;
         int found = 0;
 
+        char **lines = NULL; int nlines = 0, capl = 1024;
+        lines = malloc(capl * sizeof(char*));
+        {
+            FILE *pf = fopen(FILEquery, "r");
+            char tmp[256];
+            while (fgets(tmp, sizeof(tmp), pf)) {
+                if (nlines == capl) { capl *= 2; lines = realloc(lines, capl * sizeof(char*)); }
+                lines[nlines++] = strdup(tmp);
+            }
+            fclose(pf);
+        }
+
         while (1){
             clok();
             counter("upd", 0);
@@ -136,14 +148,8 @@ int main(){
             target_line = count;
             current_line = 1;
             // printf("looking for line: %i\n", target_line);
-            while (fgets(buffer, sizeof(buffer), file) != NULL) {
-                if (current_line == target_line) {
-                    found = 1;
-                    break;
-                }
-                current_line++;
-            }
-            fclose(file);
+            if (count >= 1 && count <= nlines) strcpy(buffer, lines[count-1]);
+            else strcpy(buffer, "HAL 00000000");
             // printf("Executing line: %s", buffer);
 
             current[0] = buffer[0];
@@ -261,20 +267,6 @@ int main(){
                 };
             };
 
-            if((strcmp(current, "DIS")) == 0){
-                for(int y = 0; y < 8; y++){
-                    uint8_t z = mem[y];
-                    char line[] = "00000000";
-                    for(int x = 0; x < 8; x++){
-                        if ((z >> x) & 1) {
-                            line[x] = '#';
-                        } else {
-                            line[x] = ' ';
-                        };
-                    };
-                    printf("%s\n", line);
-                };
-            };
             if((strcmp(current, "YEL")) == 0){
                     char cutd1[] = "00000000";
                     cutd1[0] = d1[2];

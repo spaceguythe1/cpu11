@@ -1,20 +1,27 @@
 # cpu11
 
-`cpu11` is a small experimental CPU emulator written in C. It reads a text file of instructions, decodes each line with a custom mnemonic set, and executes it against a simple accumulator-based machine model with a memory array and clock/counter logic.
+`cpu11` is a small, intentionally rough CPU emulator written in C. It reads a text file of instructions, decodes each line with a custom mnemonic set, and executes it against an 8-bit accumulator and 256-byte memory model.
 
-This project is intentionally rough and educational rather than a polished or general-purpose CPU implementation. The code and sample programs are built around ad hoc instruction formats and a few demo programs, including a small snake-style example.
+The implementation in `cpu11.c` is the source of truth for the actual supported instruction set and behavior. This project is meant as a toy instruction-set experiment, not a polished or general-purpose CPU design.
 
 ## Overview
 
-The program in `cpu11.c` is a command-line emulator. When run, it asks for an action and then reads a program file. It executes the instructions line by line, using an 8-bit accumulator and a 256-byte memory array. The implementation includes a simulated clock, counter updates, conditional jump logic, and a few display/output instructions.
+The program in `cpu11.c` is a command-line emulator. It starts by asking for an action, then reads a program file and executes it line by line. The core model is:
 
-The repo includes a few sample program files rather than a formal assembler or OS-like environment:
+- 8-bit accumulator (`accum`)
+- 256-byte memory array (`mem[256]`)
+- clock/counter-based stepping (`clok()`, `counter()`) 
+- line-oriented instruction parsing using fixed character positions in each input line
+
+There is no formal assembler, linker, or OS-like environment here; the repo mainly consists of the emulator and sample text programs.
+
+The repo includes:
 
 - `cpu11.c` — emulator implementation and interactive runner
 - `buildcpu11.sh` — build script
 - `snake.txt` — larger sample program
 - `line.txt` — small text-output demo
-- `apple.txt` — additional data file referenced by the sample names
+- `apple.txt` — data file referenced by the built-in sample name
 - `instuection set for cpu11` — notes describing the custom instruction set
 
 ## Build
@@ -45,7 +52,7 @@ At the prompt, enter:
 run
 ```
 
-Then provide a file path, or use one of the built-in names the program recognizes:
+Then provide a file path. The program also recognizes a few built-in names:
 
 ```text
 snake
@@ -53,7 +60,7 @@ line
 badapple
 ```
 
-The built-in names map to repo-local files and are handled in the code directly.
+Those names are handled directly in `cpu11.c` by mapping them to absolute paths such as `/home/joseph/cpu11/snake.txt`. If those paths are different on your machine, edit the code or pass the actual file path directly.
 
 ## Program format
 
@@ -66,32 +73,39 @@ JMP
 HAL
 ```
 
-Most instructions are mnemonic plus an optional binary operand (`d1`), usually 8 bits long. The parser is crude and assumes the exact format used by the sample programs.
+Most instructions are a mnemonic followed by an optional 8-bit binary operand (`d1`). The parser is crude and reads fixed character positions from each line, so spacing and formatting need to match the sample files closely.
 
-## Instructions
+## Memory and registers
 
-The current project recognizes and/or implements the following instructions:
+- `accum` is an 8-bit accumulator used for math and data movement.
+- `mem[256]` is a byte-addressable memory array.
+- `count` is the instruction counter used to select which line to execute.
+- `TAC` writes the count into `mem[0]` and `mem[1]` as a 16-bit value (`mem[0]` low byte, `mem[1]` high byte).
+- `JMP` and `JZE` read the jump target from that stored 16-bit value.
+
+## Instructions implemented in the code
+
+The actual emulator supports the following instruction mnemonics in `cpu11.c`:
 
 | Instruction | Purpose |
 | --- | --- |
-| `SCA` | Prompt for an 8-bit value and store it in the accumulator |
-| `HAL` | Stop execution |
-| `LOD {d1}` | Load an 8-bit value into the accumulator |
-| `CLR` | Clear memory |
-| `TAC` | Store the instruction counter in memory addresses `mem[0]` and `mem[1]` |
-| `LDA {d1}` | Load a byte from memory into the accumulator |
-| `STA {d1}` | Store the accumulator to a memory address |
+| `SCA` | Prompt for an 8-bit binary value and store it in the accumulator |
+| `HAL` | Halt execution |
+| `LOD {d1}` | Load an 8-bit binary immediate into the accumulator |
+| `CLR` | Clear all memory bytes to zero |
+| `TAC` | Store the instruction counter in `mem[0]` and `mem[1]` |
+| `LDA {d1}` | Load memory at the given address into the accumulator |
+| `STA {d1}` | Store the accumulator to memory at the given address |
 | `ADD {d1}` | Add memory contents to the accumulator |
 | `SUB {d1}` | Subtract memory contents from the accumulator |
-| `AND {d1}` | Bitwise AND with the accumulator |
-| `ORR {d1}` | Bitwise OR with the accumulator |
-| `JMP` | Jump using the counter value stored in memory |
+| `AND {d1}` | Bitwise AND with memory contents |
+| `ORR {d1}` | Bitwise OR with memory contents |
+| `JMP` | Jump to the address stored in `mem[0]` and `mem[1]` |
 | `JZE` | Conditional jump if the zero flag is set |
-| `DIF` | Render an 8x8 display-style image from memory |
-| `YEL {d1}` | Print a character based on bit pattern data |
-| `BLK` | No-op / placeholder |
+| `YEL {d1}` | Interpret the operand as a character index and print the matching character |
+| `WIP` | Screen refresh/clear helper |
 
-The notes file also references a broader or older conceptual instruction list, but the actual emulator code is the source of truth for what the project currently supports.
+Important: the README previously listed `DIF` and `BLK`, but those are not implemented in the current code. The notes file may mention a broader or older conceptual instruction list, but the actual emulator logic in `cpu11.c` is the source of truth.
 
 ## Notes
 
@@ -102,7 +116,7 @@ The notes file also references a broader or older conceptual instruction list, b
 - line-oriented instruction parsing
 - jump and zero-flag behavior
 - clock/counter stepping
-- rough, custom "assembly" programs used for demos
+- rough custom assembly programs used for demos
 
 The project is not a fully general CPU design or a polished educational emulator package. It is a small, self-contained experiment in C with intentionally minimal structure and custom program conventions.
 

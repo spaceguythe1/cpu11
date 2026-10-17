@@ -75,7 +75,7 @@ int main(){
         printf("File to run (include /x/y/z.txt to make sure it works): ");
         scanf("%s", FILEquery);
 
-        if((strcmp(FILEquery, "default" ) == 0) || (strcmp(FILEquery, "") == 0)){
+        if((strcmp(FILEquery, "default" ) == 0)){
             strcpy(FILEquery, "/home/joseph/cpu11/default.txt");
         };
 
